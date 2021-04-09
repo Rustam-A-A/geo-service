@@ -2,9 +2,11 @@ package ru.netology.i18n;
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
 import ru.netology.entity.Country;
+import ru.netology.entity.Location;
+import ru.netology.geo.GeoServiceImpl;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static ru.netology.entity.Country.RUSSIA;
-import static ru.netology.entity.Country.USA;
+import static ru.netology.entity.Country.*;
 
 class LocalizationServiceImplTest {
     private static long suiteStartTime;
@@ -35,10 +37,24 @@ class LocalizationServiceImplTest {
     @Test
     void localeTestRussia(){
         var expected = "Добро пожаловать";
-        LocalizationService localizationService = Mockito.mock(LocalizationService.class);
-        Mockito.when(localizationService.locale(RUSSIA)).thenReturn("Добро пожаловать");
-
+        LocalizationServiceImpl localizationService = new LocalizationServiceImpl();
         var actual = localizationService.locale(RUSSIA);
-        assertEquals(expected, actual);
+        Assertions.assertEquals(actual, expected);
+    }
+
+    @Test
+    void localeTestUSA(){
+        var expected = "Welcome";
+        LocalizationServiceImpl localizationService = new LocalizationServiceImpl();
+        var actual = localizationService.locale(USA);
+        Assertions.assertEquals(actual, expected);
+    }
+
+    @Test
+    void localeTestThirdCountry(){
+        var expected = "Welcome";
+        LocalizationServiceImpl localizationService = new LocalizationServiceImpl();
+        var actual = localizationService.locale(GERMANY);
+        Assertions.assertEquals(actual, expected);
     }
 }
